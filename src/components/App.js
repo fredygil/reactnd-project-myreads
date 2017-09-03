@@ -51,6 +51,13 @@ class BooksApp extends React.Component {
     }
   }  
 
+  searchBook = (e) => {
+    BooksAPI.search(e.target.value, 10)
+    .then((response) => {
+      console.log(response)
+    })
+  }
+
   render() {
      return (
       <div className="app">
@@ -67,7 +74,7 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" placeholder="Search by title or author" onChange={this.searchBook} />
                 
               </div>
             </div>
