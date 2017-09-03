@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Bookshelf extends Component {
-  
+
   render(){
     return (
       <div className="bookshelf">
@@ -11,12 +11,12 @@ class Bookshelf extends Component {
             {
               this.props.books.map((book) => {
                 return (
-                  <li key={book.title}>
+                  <li key={book.id}>
                     <div className="book">
                       <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${book.coverImage}")` }}></div>
                         <div className="book-shelf-changer">
-                          <select defaultValue={this.props.list}>
+                          <select defaultValue={this.props.list} onChange={(e) => this.props.setBookshelf(book, e.target.value)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

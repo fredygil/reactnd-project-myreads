@@ -33,6 +33,24 @@ class BooksApp extends React.Component {
     }))    
   }
 
+  setBookshelf = (book, shelf) => {
+    if (book.shelf !== shelf){
+      BooksAPI.update(book, shelf)
+      .then((response) => {
+        this.setState((prevState) => {
+          return {
+            books: prevState.books.map((stateBook) => {
+              if (stateBook.id===book.id){
+                stateBook.shelf = shelf
+              }
+              return stateBook
+            })
+          }
+        })
+      })
+    }
+  }  
+
   render() {
      return (
       <div className="app">
@@ -64,9 +82,24 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf title="Currently Reading" list="currentlyReading" books={this.getBooks('currentlyReading')} />
-                <Bookshelf title="Want to Read" list="wantToRead" books={this.getBooks('wantToRead')} />
-                <Bookshelf title="Read" list="read" books={this.getBooks('read')} />
+                <Bookshelf 
+                  title="Currently Reading" 
+                  list="currentlyReading" 
+                  books={this.getBooks('currentlyReading')}
+                  setBookshelf={this.setBookshelf}
+                />
+                <Bookshelf 
+                  title="Want to Read" 
+                  list="wantToRead" 
+                  books={this.getBooks('wantToRead')}
+                  setBookshelf={this.setBookshelf}
+                />
+                <Bookshelf 
+                  title="Read" 
+                  list="read" 
+                  books={this.getBooks('read')}
+                  setBookshelf={this.setBookshelf}
+                />
               </div>
             </div>
             <div className="open-search">
